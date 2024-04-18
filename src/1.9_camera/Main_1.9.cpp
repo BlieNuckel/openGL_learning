@@ -7,11 +7,15 @@
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include <filesystem>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <math.h>
+
+const char vertexShader[] = "../../src/1.9_camera/shaders/shader.vs";
+const char fragShader[] = "../../src/1.9_camera/shaders/shader.fs";
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -77,7 +81,6 @@ glm::vec3 cubePositions[] = {
     glm::vec3(1.5f, 0.2f, -1.5f),
     glm::vec3(-1.3f, 1.0f, -1.5f)
 };
-float mixPercentage = 0.2f;
 
 // MARK: GLOBALS
 // screen
@@ -95,6 +98,9 @@ bool cameraMouseControl = false;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+// shaders
+float mixPercentage = 0.2f;
+
 int main(int argc, char const *argv[]) {
     GLFWwindow *window = initGlfw(SCR_WIDTH, SCR_HEIGHT, framebuffer_size_callback);
     if (window == NULL) {
@@ -107,14 +113,14 @@ int main(int argc, char const *argv[]) {
     glfwSetScrollCallback(window, scroll_callback);
 
     renderInit();
-    unsigned int texture1 = loadTexture("./resources/container.jpg", GL_RGB, GL_REPEAT, GL_REPEAT);
-    unsigned int texture2 = loadTexture("./resources/awesomeface.png", GL_RGBA, GL_REPEAT, GL_REPEAT);
+    unsigned int texture1 = loadTexture("../../src/1.9_camera/resources/container.jpg", GL_RGB, GL_REPEAT, GL_REPEAT);
+    unsigned int texture2 = loadTexture("../../src/1.9_camera/resources/awesomeface.png", GL_RGBA, GL_REPEAT, GL_REPEAT);
 
     if (texture1 == -1 || texture2 == -1) {
         return -1;
     }
 
-    Shader shader("./shaders/shader.vs", "./shaders/shader.fs");
+    Shader shader(vertexShader, fragShader);
 
     shader.use();
     shader.setInt("texture1", 0);
