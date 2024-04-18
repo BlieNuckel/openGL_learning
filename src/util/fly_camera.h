@@ -42,8 +42,7 @@ public:
     }
 
     glm::mat4 view() {
-        // return glm::lookAt(Pos, Pos + Front, Up);
-        return lookAtCustom(Pos, Pos + Front, WorldUp);
+        return glm::lookAt(Pos, Pos + Front, Up);
     }
 
     void ProcessKeyboard(Camera_Movement direction, float deltaTime) {
