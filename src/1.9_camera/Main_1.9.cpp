@@ -2,8 +2,9 @@
 #include "../util/Shader.h"
 #include "../util/fly_camera.h"
 #include "../util/fps_camera.h"
-#include "../util/stb_image.h"
-#include <GLAD/glad.h>
+#include <glad/glad.h>
+#include <stb_image.h>
+
 #include <GLFW/glfw3.h>
 #include <algorithm>
 #include <glm/glm.hpp>

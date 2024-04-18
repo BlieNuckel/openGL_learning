@@ -1,7 +1,8 @@
 #ifndef GLFW_INIT_H
 #define GLFW_INIT_H
 
-#include <GLAD/glad.h>
+#include <glad/glad.h>
+
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -10,6 +11,9 @@ GLFWwindow *initGlfw(const int width, const int height, GLFWframebuffersizefun w
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     GLFWwindow *window = glfwCreateWindow(width, height, "Learn OpenGL", NULL, NULL);
     if (window == NULL) {
