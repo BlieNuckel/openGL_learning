@@ -1,7 +1,6 @@
 #include "../util/GlfwInit.h"
 #include "../util/Shader.h"
 #include "../util/fly_camera.h"
-#include "uv_sphere.h"
 #include <glad/glad.h>
 
 #include <GLFW/glfw3.h>
@@ -9,6 +8,8 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <math.h>
+#include <mesh.h>
+#include <uv_sphere.h>
 
 const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
 const char fragShader[] = "../../src/1.10_sphere/shaders/shader.fs";
@@ -37,6 +38,9 @@ bool cameraMouseControl = false;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+Mesh uv_sphere_mesh = uv_sphere(10, 10);
+unsigned int VAO;
+
 int main() {
     GLFWwindow *window = initGlfw(SCR_WIDTH, SCR_HEIGHT, framebuffer_size_callback);
     if (window == NULL) {
@@ -57,6 +61,8 @@ int main() {
         clearBuffers();
         shader.use();
 
+        glDrawElements(GL_TRIANGLES, sizeof(uv_sphere_mesh.indices()), GL_UNSIGNED_INT, 0);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -67,6 +73,8 @@ int main() {
 
 void renderInit() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    VAO = renderMesh(uv_sphere_mesh);
 }
 
 void calcTiming() {

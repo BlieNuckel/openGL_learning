@@ -1,19 +1,15 @@
 using namespace std;
 #include <glm/glm.hpp>
 #include <math.h>
+#include <mesh.h>
 #include <numbers>
 #include <vector>
-
-struct Mesh {
-    vector<glm::vec3> vertices;
-    vector<glm::vec3> indices;
-};
 
 Mesh uv_sphere(int n_slices, int n_stacks) {
     Mesh mesh;
 
     glm::vec3 northPole = glm::vec3(0.0f, 1.0f, 0.0f);
-    mesh.vertices.push_back(northPole);
+    mesh.add_vertex(northPole);
 
     for (size_t i = 0; i < n_stacks; i++) {
         double phi = 2.0 * numbers::pi * double(i + 1) / double(n_stacks);
@@ -23,12 +19,12 @@ Mesh uv_sphere(int n_slices, int n_stacks) {
             double y = cos(phi);
             double z = sin(phi) * sin(theta);
 
-            mesh.vertices.push_back(glm::vec3(float(x), float(y), float(z)));
+            mesh.add_vertex(glm::vec3(float(x), float(y), float(z)));
         }
     }
 
     glm::vec3 southPole = glm::vec3(0.0f, -1.0f, 0.0f);
-    mesh.vertices.push_back(southPole);
+    mesh.add_vertex(southPole);
 
     return mesh;
 }
