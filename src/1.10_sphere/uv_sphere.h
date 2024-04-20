@@ -9,7 +9,7 @@ Mesh uv_sphere(int n_slices, int n_stacks) {
     Mesh mesh;
 
     glm::vec3 northPole = glm::vec3(0.0f, 1.0f, 0.0f);
-    mesh.add_vertex(northPole);
+    int v0 = mesh.add_vertex(northPole);
 
     for (size_t i = 0; i < n_stacks; i++) {
         double phi = 2.0 * numbers::pi * double(i + 1) / double(n_stacks);
@@ -24,7 +24,17 @@ Mesh uv_sphere(int n_slices, int n_stacks) {
     }
 
     glm::vec3 southPole = glm::vec3(0.0f, -1.0f, 0.0f);
-    mesh.add_vertex(southPole);
+    int v1 = mesh.add_vertex(southPole);
+
+    for (size_t i = 0; i < n_slices; i++) {
+        int i0 = i + 1;
+        int i1 = (i + 1) % n_slices + 1;
+        mesh.add_triangle(glm::vec3(v0, i1, i0));
+
+        i0 = i + n_slices * (n_stacks - 2) + 1;
+        i1 = (i + 1) % n_slices + n_slices * (n_stacks - 2) + 1;
+        mesh.add_triangle(glm::vec3(v1, i0, i1));
+    }
 
     return mesh;
 }

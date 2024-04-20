@@ -10,7 +10,7 @@ using namespace std;
 class Mesh {
 private:
     vector<float> _vertices;
-    vector<float> _triangles;
+    vector<int> _triangles;
     int index = 0;
 
 public:
