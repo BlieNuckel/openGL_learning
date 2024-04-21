@@ -42,14 +42,14 @@ public:
         return _vertices.data();
     }
 
-    float *indices() {
+    int *indices() {
         return _triangles.data();
     }
 };
 
 unsigned int renderMesh(Mesh mesh) {
     const float *vertices = mesh.vertices();
-    const float *indices = mesh.indices();
+    const int *indices = mesh.indices();
 
     unsigned int VAO;
     unsigned int VBO;

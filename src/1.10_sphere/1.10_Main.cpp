@@ -9,6 +9,7 @@
 #include <iostream>
 #include <math.h>
 #include <mesh.h>
+#include <point.h>
 #include <uv_sphere.h>
 
 const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
@@ -61,7 +62,10 @@ int main() {
         clearBuffers();
         shader.use();
 
-        glDrawElements(GL_TRIANGLES, sizeof(uv_sphere_mesh.indices()), GL_UNSIGNED_INT, 0);
+        // glDrawElements(GL_TRIANGLES, sizeof(uv_sphere_mesh.indices()), GL_UNSIGNED_INT, 0);
+
+        drawPoint(glm::vec3(0.0f, 0.0f, 0.0f));
+        drawPoint(glm::vec3(0.0f, 5.0f, 0.0f));
 
         glfwSwapBuffers(window);
         glfwPollEvents();

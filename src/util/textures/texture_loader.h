@@ -3,9 +3,12 @@ using namespace std;
 #include <stb_image.h>
 
 #include <GLFW/glfw3.h>
+#include <filesystem>
 #include <iostream>
 
 unsigned int loadTexture(const char *texturePath, const GLenum format, const GLint sWrap, const GLint tWrap) {
+    filesystem::path absTexPath = filesystem::absolute(filesystem::path(texturePath));
+
     unsigned int texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -19,7 +22,7 @@ unsigned int loadTexture(const char *texturePath, const GLenum format, const GLi
     int height;
     int nrChannels;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(absTexPath.c_str(), &width, &height, &nrChannels, 0);
 
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
