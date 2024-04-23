@@ -9,6 +9,8 @@ using namespace std;
 unsigned int loadTexture(const char *texturePath, const GLenum format, const GLint sWrap, const GLint tWrap) {
     filesystem::path absTexPath = filesystem::absolute(filesystem::path(texturePath));
 
+    cout << "texture: " + absTexPath.string() << endl;
+
     unsigned int texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -22,7 +24,7 @@ unsigned int loadTexture(const char *texturePath, const GLenum format, const GLi
     int height;
     int nrChannels;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load(absTexPath.c_str(), &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(absTexPath.string().c_str(), &width, &height, &nrChannels, 0);
 
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);

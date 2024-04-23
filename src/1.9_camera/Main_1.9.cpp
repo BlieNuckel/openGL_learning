@@ -113,7 +113,7 @@ int main(int argc, char const *argv[]) {
     glfwSetScrollCallback(window, scroll_callback);
 
     renderInit();
-    unsigned int texture1 = loadTexture("../../src/1.9_camera/resources/container.jpg", GL_RGB, GL_REPEAT, GL_REPEAT);
+    unsigned int texture1 = loadTexture("../../src/util/debug_draw/point/resources/point.png", GL_RGB, GL_REPEAT, GL_REPEAT);
     unsigned int texture2 = loadTexture("../../src/1.9_camera/resources/awesomeface.png", GL_RGBA, GL_REPEAT, GL_REPEAT);
 
     if (texture1 == -1 || texture2 == -1) {

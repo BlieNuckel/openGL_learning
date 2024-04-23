@@ -1,6 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
-
+using namespace std;
+#include <filesystem>
 #include <fstream>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -67,8 +68,14 @@ public:
         fShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
 
         try {
-            vShaderFile.open(vertexPath);
-            fShaderFile.open(fragmentPath);
+            string absVertex = filesystem::absolute(filesystem::path(vertexPath)).string();
+            string absFragment = filesystem::absolute(filesystem::path(fragmentPath)).string();
+
+            cout << "vertex:" + string(absVertex) << endl;
+            cout << "fragment:" + string(absFragment) << endl;
+
+            vShaderFile.open(absVertex);
+            fShaderFile.open(absFragment);
             std::stringstream vShaderStream, fShaderStream;
 
             vShaderStream << vShaderFile.rdbuf();

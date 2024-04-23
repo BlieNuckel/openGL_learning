@@ -1,6 +1,8 @@
-#include "../util/GlfwInit.h"
-#include "../util/Shader.h"
-#include "../util/fly_camera.h"
+#include "uv_sphere.h"
+#include <GlfwInit.h>
+#include <Shader.h>
+#include <debug_draw/point/point.h>
+#include <fly_camera.h>
 #include <glad/glad.h>
 
 #include <GLFW/glfw3.h>
@@ -8,9 +10,6 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <math.h>
-#include <mesh.h>
-#include <point.h>
-#include <uv_sphere.h>
 
 const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
 const char fragShader[] = "../../src/1.10_sphere/shaders/shader.fs";
@@ -39,7 +38,6 @@ bool cameraMouseControl = false;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-Mesh uv_sphere_mesh = uv_sphere(10, 10);
 unsigned int VAO;
 
 int main() {
@@ -49,23 +47,33 @@ int main() {
     }
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
+    Mesh uv_sphere_mesh = uv_sphere(10, 10);
 
     renderInit();
 
     Shader shader(vertexShader, fragShader);
+    Point debugPoint;
+
+    glm::mat4 projection;
+    projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 
     while (!glfwWindowShouldClose(window)) {
         calcTiming();
         processInput(window);
         clearBuffers();
         shader.use();
+        shader.setMat4fv("view", camera.view());
+        shader.setMat4fv("projection", projection);
+        shader.setMat4fv("model", glm::mat4(1.0f));
 
         // glDrawElements(GL_TRIANGLES, sizeof(uv_sphere_mesh.indices()), GL_UNSIGNED_INT, 0);
 
-        drawPoint(glm::vec3(0.0f, 0.0f, 0.0f));
-        drawPoint(glm::vec3(0.0f, 5.0f, 0.0f));
+        debugPoint.draw(glm::vec3(0.0f, 0.0f, 0.0f), camera.Front, camera.view(), projection);
+        debugPoint.draw(glm::vec3(0.0f, 5.0f, 0.0f), camera.Front, camera.view(), projection);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -78,7 +86,7 @@ int main() {
 void renderInit() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    VAO = renderMesh(uv_sphere_mesh);
+    // VAO = renderMesh(uv_sphere_mesh);
 }
 
 void calcTiming() {
