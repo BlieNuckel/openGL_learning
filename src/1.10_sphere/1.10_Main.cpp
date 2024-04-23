@@ -1,3 +1,5 @@
+using namespace std;
+
 #include "uv_sphere.h"
 #include <GlfwInit.h>
 #include <Shader.h>
@@ -10,6 +12,8 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <math.h>
+#include <mesh/draw_mesh.h>
+#include <mesh/mesh.h>
 
 const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
 const char fragShader[] = "../../src/1.10_sphere/shaders/shader.fs";
@@ -38,7 +42,9 @@ bool cameraMouseControl = false;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+// mesh
 unsigned int VAO;
+Mesh mesh = uv_sphere(10, 10);
 
 int main() {
     GLFWwindow *window = initGlfw(SCR_WIDTH, SCR_HEIGHT, framebuffer_size_callback);
@@ -51,7 +57,6 @@ int main() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
-    Mesh uv_sphere_mesh = uv_sphere(10, 10);
 
     renderInit();
 
@@ -65,15 +70,15 @@ int main() {
         calcTiming();
         processInput(window);
         clearBuffers();
+
+        glBindVertexArray(VAO);
+
         shader.use();
         shader.setMat4fv("view", camera.view());
         shader.setMat4fv("projection", projection);
         shader.setMat4fv("model", glm::mat4(1.0f));
 
-        // glDrawElements(GL_TRIANGLES, sizeof(uv_sphere_mesh.indices()), GL_UNSIGNED_INT, 0);
-
-        debugPoint.draw(glm::vec3(0.0f, 0.0f, 0.0f), camera.Front, camera.view(), projection);
-        debugPoint.draw(glm::vec3(0.0f, 5.0f, 0.0f), camera.Front, camera.view(), projection);
+        glDrawElements(GL_TRIANGLES, sizeof(mesh._triangles.size()), GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -86,7 +91,7 @@ int main() {
 void renderInit() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    // VAO = renderMesh(uv_sphere_mesh);
+    VAO = renderMesh(mesh);
 }
 
 void calcTiming() {

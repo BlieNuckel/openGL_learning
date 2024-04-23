@@ -1,7 +1,7 @@
 using namespace std;
 #include <glm/glm.hpp>
 #include <math.h>
-#include <mesh.h>
+#include <mesh/mesh.h>
 #include <numbers>
 #include <vector>
 
@@ -29,11 +29,23 @@ Mesh uv_sphere(int n_slices, int n_stacks) {
     for (size_t i = 0; i < n_slices; i++) {
         int i0 = i + 1;
         int i1 = (i + 1) % n_slices + 1;
-        mesh.add_triangle(glm::vec3(v0, i1, i0));
+        mesh.add_triangle(v0, i1, i0);
 
         i0 = i + n_slices * (n_stacks - 2) + 1;
         i1 = (i + 1) % n_slices + n_slices * (n_stacks - 2) + 1;
-        mesh.add_triangle(glm::vec3(v1, i0, i1));
+        mesh.add_triangle(v1, i0, i1);
+    }
+
+    for (size_t j = 0; j < n_stacks - 2; j++) {
+        int j0 = j * n_slices + 1;
+        int j1 = (j + 1) * n_slices + 1;
+        for (int i = 0; i < n_slices; i++) {
+            int i0 = j0 + i;
+            int i1 = j0 + (i + 1) % n_slices;
+            int i2 = j1 + (i + 1) % n_slices;
+            int i3 = j1 + i;
+            mesh.add_quad(i0, i1, i2, i3);
+        }
     }
 
     return mesh;
