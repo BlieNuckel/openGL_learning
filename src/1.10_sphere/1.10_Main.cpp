@@ -44,7 +44,8 @@ float lastFrame = 0.0f;
 
 // mesh
 unsigned int VAO;
-Mesh mesh = uv_sphere(10, 10);
+// Mesh mesh = uv_sphere(10, 10);
+Mesh mesh;
 
 int main() {
     GLFWwindow *window = initGlfw(SCR_WIDTH, SCR_HEIGHT, framebuffer_size_callback);
@@ -90,6 +91,37 @@ int main() {
 
 void renderInit() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    // front top left
+    mesh.add_vertex(glm::vec3(-1.0f, 1.0f, 1.0f));
+    // front top right
+    mesh.add_vertex(glm::vec3(1.0f, 1.0f, 1.0f));
+    // front bottom left
+    mesh.add_vertex(glm::vec3(-1.0f, -1.0f, 1.0f));
+    // front bottom right
+    mesh.add_vertex(glm::vec3(1.0f, -1.0f, 1.0f));
+
+    // back top left
+    mesh.add_vertex(glm::vec3(-1.0f, 1.0f, -1.0f));
+    // back top right
+    mesh.add_vertex(glm::vec3(1.0f, 1.0f, -1.0f));
+    // back bottom left
+    mesh.add_vertex(glm::vec3(-1.0f, -1.0f, -1.0f));
+    // back bottom right
+    mesh.add_vertex(glm::vec3(1.0f, -1.0f, -1.0f));
+
+    // front plane
+    // mesh.add_quad(0, 1, 2, 3);
+    // back plane
+    mesh.add_quad(4, 5, 6, 7);
+    // bottom plane
+    mesh.add_quad(2, 3, 6, 7);
+    // top plane
+    mesh.add_quad(0, 1, 4, 5);
+    // right plane
+    mesh.add_quad(1, 3, 5, 7);
+    // left plane
+    mesh.add_quad(0, 2, 4, 6);
 
     VAO = renderMesh(mesh);
 }

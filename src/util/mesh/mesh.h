@@ -18,7 +18,7 @@ public:
         _vertices.push_back(vertex.x);
         _vertices.push_back(vertex.y);
         _vertices.push_back(vertex.z);
-        return (_vertices.capacity() / 3) - 1;
+        return (_vertices.size() / 3) - 1;
     }
 
     void add_triangle(int index1, int index2, int index3) {
