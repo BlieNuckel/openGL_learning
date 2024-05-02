@@ -1,3 +1,6 @@
+#ifndef UV_SPHERE_H
+#define UV_SPHERE_H
+
 using namespace std;
 #include <glm/glm.hpp>
 #include <math.h>
@@ -44,9 +47,11 @@ Mesh uv_sphere(int n_slices, int n_stacks) {
             int i1 = j0 + (i + 1) % n_slices;
             int i2 = j1 + (i + 1) % n_slices;
             int i3 = j1 + i;
-            mesh.add_quad(i0, i1, i2, i3);
+            mesh.add_quad(i0, i1, i3, i2);
         }
     }
 
     return mesh;
 }
+
+#endif

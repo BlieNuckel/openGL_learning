@@ -30,10 +30,10 @@ public:
     void add_quad(int index1, int index2, int index3, int index4) {
         _triangles.push_back(index1);
         _triangles.push_back(index2);
-        _triangles.push_back(index3);
-        _triangles.push_back(index1);
-        _triangles.push_back(index3);
         _triangles.push_back(index4);
+        _triangles.push_back(index1);
+        _triangles.push_back(index4);
+        _triangles.push_back(index3);
     }
 
     float *vertices() {

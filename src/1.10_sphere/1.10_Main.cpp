@@ -14,6 +14,7 @@ using namespace std;
 #include <math.h>
 #include <mesh/draw_mesh.h>
 #include <mesh/mesh.h>
+#include <vector>
 
 const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
 const char fragShader[] = "../../src/1.10_sphere/shaders/shader.fs";
@@ -44,8 +45,8 @@ float lastFrame = 0.0f;
 
 // mesh
 unsigned int VAO;
-// Mesh mesh = uv_sphere(10, 10);
-Mesh mesh;
+Mesh mesh = uv_sphere(50, 50);
+Point point = Point();
 
 int main() {
     GLFWwindow *window = initGlfw(SCR_WIDTH, SCR_HEIGHT, framebuffer_size_callback);
@@ -79,7 +80,15 @@ int main() {
         shader.setMat4fv("projection", projection);
         shader.setMat4fv("model", glm::mat4(1.0f));
 
-        glDrawElements(GL_TRIANGLES, sizeof(mesh._triangles.size()), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, mesh._triangles.size(), GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+
+        for (size_t i = 0; i < mesh._vertices.size(); i += 3) {
+            glm::vec3 pos = glm::vec3(mesh._vertices[i], mesh._vertices[i + 1], mesh._vertices[i + 2]);
+
+            point.draw(pos, camera.view(), projection);
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -92,36 +101,36 @@ int main() {
 void renderInit() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    // front top left
-    mesh.add_vertex(glm::vec3(-1.0f, 1.0f, 1.0f));
-    // front top right
-    mesh.add_vertex(glm::vec3(1.0f, 1.0f, 1.0f));
-    // front bottom left
-    mesh.add_vertex(glm::vec3(-1.0f, -1.0f, 1.0f));
-    // front bottom right
-    mesh.add_vertex(glm::vec3(1.0f, -1.0f, 1.0f));
+    // // front top left
+    // mesh.add_vertex(glm::vec3(-1.0f, 1.0f, 1.0f));
+    // // front top right
+    // mesh.add_vertex(glm::vec3(1.0f, 1.0f, 1.0f));
+    // // front bottom left
+    // mesh.add_vertex(glm::vec3(-1.0f, -1.0f, 1.0f));
+    // // front bottom right
+    // mesh.add_vertex(glm::vec3(1.0f, -1.0f, 1.0f));
 
-    // back top left
-    mesh.add_vertex(glm::vec3(-1.0f, 1.0f, -1.0f));
-    // back top right
-    mesh.add_vertex(glm::vec3(1.0f, 1.0f, -1.0f));
-    // back bottom left
-    mesh.add_vertex(glm::vec3(-1.0f, -1.0f, -1.0f));
-    // back bottom right
-    mesh.add_vertex(glm::vec3(1.0f, -1.0f, -1.0f));
+    // // back top left
+    // mesh.add_vertex(glm::vec3(-1.0f, 1.0f, -1.0f));
+    // // back top right
+    // mesh.add_vertex(glm::vec3(1.0f, 1.0f, -1.0f));
+    // // back bottom left
+    // mesh.add_vertex(glm::vec3(-1.0f, -1.0f, -1.0f));
+    // // back bottom right
+    // mesh.add_vertex(glm::vec3(1.0f, -1.0f, -1.0f));
 
-    // front plane
+    // // front plane
     // mesh.add_quad(0, 1, 2, 3);
-    // back plane
-    mesh.add_quad(4, 5, 6, 7);
-    // bottom plane
-    mesh.add_quad(2, 3, 6, 7);
-    // top plane
-    mesh.add_quad(0, 1, 4, 5);
-    // right plane
-    mesh.add_quad(1, 3, 5, 7);
-    // left plane
-    mesh.add_quad(0, 2, 4, 6);
+    // // back plane
+    // mesh.add_quad(4, 5, 6, 7);
+    // // bottom plane
+    // mesh.add_quad(2, 3, 6, 7);
+    // // top plane
+    // mesh.add_quad(0, 1, 4, 5);
+    // // right plane
+    // mesh.add_quad(1, 3, 5, 7);
+    // // left plane
+    // mesh.add_quad(0, 2, 4, 6);
 
     VAO = renderMesh(mesh);
 }
