@@ -1,12 +1,10 @@
 #ifndef UV_SPHERE_H
 #define UV_SPHERE_H
 
-using namespace std;
 #include <glm/glm.hpp>
 #include <math.h>
 #include <mesh/mesh.h>
 #include <numbers>
-#include <vector>
 
 Mesh uv_sphere(int n_slices, int n_stacks) {
     Mesh mesh;

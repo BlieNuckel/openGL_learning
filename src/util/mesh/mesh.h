@@ -1,7 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-using namespace std;
 #include <glm/glm.hpp>
 #include <math.h>
 #include <numbers>
@@ -9,8 +8,8 @@ using namespace std;
 
 class Mesh {
 public:
-    vector<float> _vertices;
-    vector<int> _triangles;
+    std::vector<float> _vertices;
+    std::vector<int> _triangles;
 
     Mesh() {}
 

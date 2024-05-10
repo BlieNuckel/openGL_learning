@@ -1,14 +1,10 @@
 #ifndef DRAW_MESH_H
 #define DRAW_MESH_H
 
-using namespace std;
-
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <math.h>
 #include <mesh/mesh.h>
-#include <numbers>
-#include <vector>
 
 unsigned int renderMesh(Mesh &mesh) {
 

@@ -46,7 +46,8 @@ float lastFrame = 0.0f;
 // mesh
 unsigned int VAO;
 Mesh mesh = uv_sphere(50, 50);
-Point point = Point();
+
+// Mesh mesh;
 
 int main() {
     GLFWwindow *window = initGlfw(SCR_WIDTH, SCR_HEIGHT, framebuffer_size_callback);
@@ -63,7 +64,7 @@ int main() {
     renderInit();
 
     Shader shader(vertexShader, fragShader);
-    Point debugPoint;
+    Point point;
 
     glm::mat4 projection;
     projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
