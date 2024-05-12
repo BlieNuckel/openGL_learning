@@ -1,20 +1,21 @@
-using namespace std;
 
 #include "uv_sphere.h"
 #include <GlfwInit.h>
 #include <Shader.h>
-#include <debug_draw/point/point.h>
 #include <fly_camera.h>
 #include <glad/glad.h>
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include <debug_draw/debug_draw.h>
 #include <glm/glm.hpp>
 #include <iostream>
 #include <math.h>
 #include <mesh/draw_mesh.h>
 #include <mesh/mesh.h>
 #include <vector>
+
+using namespace std;
 
 const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
 const char fragShader[] = "../../src/1.10_sphere/shaders/shader.fs";
@@ -64,7 +65,7 @@ int main() {
     renderInit();
 
     Shader shader(vertexShader, fragShader);
-    Point point;
+    debug_draw::Point point;
 
     glm::mat4 projection;
     projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -101,37 +102,6 @@ int main() {
 
 void renderInit() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    // // front top left
-    // mesh.add_vertex(glm::vec3(-1.0f, 1.0f, 1.0f));
-    // // front top right
-    // mesh.add_vertex(glm::vec3(1.0f, 1.0f, 1.0f));
-    // // front bottom left
-    // mesh.add_vertex(glm::vec3(-1.0f, -1.0f, 1.0f));
-    // // front bottom right
-    // mesh.add_vertex(glm::vec3(1.0f, -1.0f, 1.0f));
-
-    // // back top left
-    // mesh.add_vertex(glm::vec3(-1.0f, 1.0f, -1.0f));
-    // // back top right
-    // mesh.add_vertex(glm::vec3(1.0f, 1.0f, -1.0f));
-    // // back bottom left
-    // mesh.add_vertex(glm::vec3(-1.0f, -1.0f, -1.0f));
-    // // back bottom right
-    // mesh.add_vertex(glm::vec3(1.0f, -1.0f, -1.0f));
-
-    // // front plane
-    // mesh.add_quad(0, 1, 2, 3);
-    // // back plane
-    // mesh.add_quad(4, 5, 6, 7);
-    // // bottom plane
-    // mesh.add_quad(2, 3, 6, 7);
-    // // top plane
-    // mesh.add_quad(0, 1, 4, 5);
-    // // right plane
-    // mesh.add_quad(1, 3, 5, 7);
-    // // left plane
-    // mesh.add_quad(0, 2, 4, 6);
 
     VAO = renderMesh(mesh);
 }

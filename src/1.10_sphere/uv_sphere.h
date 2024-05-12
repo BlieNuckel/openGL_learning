@@ -13,9 +13,9 @@ Mesh uv_sphere(int n_slices, int n_stacks) {
     int v0 = mesh.add_vertex(northPole);
 
     for (size_t i = 0; i < n_stacks; i++) {
-        double phi = 2.0 * numbers::pi * double(i + 1) / double(n_stacks);
+        double phi = 2.0 * std::numbers::pi * double(i + 1) / double(n_stacks);
         for (size_t j = 0; j < n_slices; j++) {
-            double theta = 2.0 * numbers::pi * double(j) / double(n_slices);
+            double theta = 2.0 * std::numbers::pi * double(j) / double(n_slices);
             double x = sin(phi) * cos(theta);
             double y = cos(phi);
             double z = sin(phi) * sin(theta);

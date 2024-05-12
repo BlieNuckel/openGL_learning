@@ -67,11 +67,11 @@ public:
         fShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
 
         try {
-            string absVertex = filesystem::absolute(filesystem::path(vertexPath)).string();
-            string absFragment = filesystem::absolute(filesystem::path(fragmentPath)).string();
+            std::string absVertex = std::filesystem::absolute(std::filesystem::path(vertexPath)).string();
+            std::string absFragment = std::filesystem::absolute(std::filesystem::path(fragmentPath)).string();
 
-            cout << "vertex:" + string(absVertex) << endl;
-            cout << "fragment:" + string(absFragment) << endl;
+            std::cout << "vertex:" + std::string(absVertex) << std::endl;
+            std::cout << "fragment:" + std::string(absFragment) << std::endl;
 
             vShaderFile.open(absVertex);
             fShaderFile.open(absFragment);
