@@ -3,8 +3,16 @@
 
 #include <mesh/mesh.h>
 
-Mesh tetrahedron();
-Mesh hexahedron();
-Mesh dual(Mesh &mesh)
+namespace geometry {
+    // SPHERES
+    Mesh uv_sphere(int n_slices, int n_stacks);
+
+    // POLYGONS
+    Mesh tetrahedron();
+    Mesh hexahedron();
+
+    // MESH MODS
+    Mesh dual(Mesh &mesh);
+}
 
 #endif

@@ -11,37 +11,17 @@ public:
     std::vector<float> _vertices;
     std::vector<int> _triangles;
 
-    Mesh() {}
+    Mesh();
 
-    int add_vertex(glm::vec3 vertex) {
-        _vertices.push_back(vertex.x);
-        _vertices.push_back(vertex.y);
-        _vertices.push_back(vertex.z);
-        return (_vertices.size() / 3) - 1;
-    }
+    int add_vertex(glm::vec3 vertex);
 
-    void add_triangle(int index1, int index2, int index3) {
-        _triangles.push_back(index1);
-        _triangles.push_back(index2);
-        _triangles.push_back(index3);
-    }
+    void add_triangle(int index1, int index2, int index3);
 
-    void add_quad(int index1, int index2, int index3, int index4) {
-        _triangles.push_back(index1);
-        _triangles.push_back(index2);
-        _triangles.push_back(index4);
-        _triangles.push_back(index1);
-        _triangles.push_back(index4);
-        _triangles.push_back(index3);
-    }
+    void add_quad(int index1, int index2, int index3, int index4);
 
-    float *vertices() {
-        return _vertices.data();
-    }
+    float *vertices();
 
-    int *indices() {
-        return _triangles.data();
-    }
+    int *indices();
 };
 
 #endif

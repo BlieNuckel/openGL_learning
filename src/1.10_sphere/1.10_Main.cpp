@@ -1,5 +1,4 @@
 
-#include "uv_sphere.h"
 #include <GlfwInit.h>
 #include <Shader.h>
 #include <fly_camera.h>
@@ -8,6 +7,7 @@
 #include <GLFW/glfw3.h>
 #include <algorithm>
 #include <debug_draw/debug_draw.h>
+#include <geometry/geometry.h>
 #include <glm/glm.hpp>
 #include <iostream>
 #include <math.h>
@@ -46,7 +46,7 @@ float lastFrame = 0.0f;
 
 // mesh
 unsigned int VAO;
-Mesh mesh = uv_sphere(50, 50);
+Mesh mesh = geometry::uv_sphere(50, 50);
 
 // Mesh mesh;
 
