@@ -4,6 +4,6 @@
 #include <mesh/mesh.h>
 
 Mesh dual_poly(Mesh &mesh);
-Mesh centroid(const Mesh &mesh, Face f);
+Mesh face_centroid(const Mesh &mesh, Face f);
 
 #endif
