@@ -1,5 +1,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "mesh.h"
+#include <algorithm>
 #include <algorithms/algorithms.h>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
@@ -8,16 +9,18 @@
 
 Mesh::Mesh() {}
 
-Face Mesh::add_face(const std::vector<int> vertices) {
+Face Mesh::add_face(const std::vector<int> &vertex_i) {
     // Check minimum 3 vertices in face
-    const size_t n(vertices.size());
-    assert(n > 2);
+    const size_t n(vertex_i.size());
+    if (n <= 2) {
+        throw std::invalid_argument("At least 3 vertices are required to create a face.");
+    }
 
     // Generate mesh plane
-    glm::vec3 p1 = this->vertex(vertices[0]);
-    glm::vec3 p2 = this->vertex(vertices[1]);
-    glm::vec3 p3 = this->vertex(vertices[2]);
-    glm::vec4 plane = algorithms::plane_from_points(p1, p2, p3);
+    auto p1 = this->vertex(vertex_i[0]);
+    auto p2 = this->vertex(vertex_i[1]);
+    auto p3 = this->vertex(vertex_i[2]);
+    auto plane = algorithms::plane_from_points(p1, p2, p3);
 
     std::cout << "Plane: " + glm::to_string(plane) << std::endl;
 
@@ -25,19 +28,24 @@ Face Mesh::add_face(const std::vector<int> vertices) {
     points.resize(n);
 
     for (int i = n - 1; i >= 0; i--) {
-        points[i] = this->vertex(vertices[i]);
+        points[i] = this->vertex(vertex_i[i]);
     }
 
     // Validate points are on plane
     bool valid = algorithms::all_points_on_plane(plane, points);
     if (!valid) {
-        std::cout << "add_face::points_not_on_plane" << std::endl;
-        throw "Not all points are on same plane";
+        std::cout << "add_face::points_not_on_plane" + glm::to_string(plane) << std::endl;
+        throw std::exception("Invalid plane generation attempted");
     }
+
+    std::vector<float> angles;
+    std::transform(points.begin(), points.end(), std::back_inserter(angles), [&](glm::vec3 point) {
+        return glm::orientedAngle()
+    });
 
     // Get offset for new face and insert new vertices
     int face_offset = this->_faces.size();
-    this->_vertices.insert(this->_vertices.end(), vertices.begin(), vertices.end());
+    this->_vertices.insert(this->_vertices.end(), vertex_i.begin(), vertex_i.end());
 
     // Create new face and save to faces vector
     Face new_face(face_offset, n);

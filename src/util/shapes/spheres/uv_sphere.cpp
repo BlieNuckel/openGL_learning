@@ -1,10 +1,10 @@
-#include "../geometry.h"
+#include "../shapes.h"
 #include <glm/glm.hpp>
 #include <math.h>
 #include <mesh/mesh.h>
 #include <numbers>
 
-Mesh geometry::uv_sphere(int n_slices, int n_stacks) {
+Mesh shapes::uv_sphere(int n_slices, int n_stacks) {
     Mesh mesh;
 
     glm::vec3 northPole = glm::vec3(0.0f, 1.0f, 0.0f);

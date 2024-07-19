@@ -2,16 +2,16 @@
 #define DEBUG_DRAW_H
 
 #include <Shader.h>
-#include <geometry/geometry.h>
 #include <glm/glm.hpp>
 #include <mesh/mesh.h>
+#include <shapes/shapes.h>
 
 namespace debug_draw {
 
     class Point {
     private:
         Shader shader;
-        Mesh mesh = geometry::uv_sphere(10, 10);
+        Mesh mesh = shapes::uv_sphere(10, 10);
         unsigned int VAO;
         float scale;
 

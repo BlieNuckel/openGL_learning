@@ -3,7 +3,7 @@
 
 #include <mesh/mesh.h>
 
-namespace geometry {
+namespace shapes {
     // SPHERES
     Mesh uv_sphere(int n_slices, int n_stacks);
 

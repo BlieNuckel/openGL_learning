@@ -15,8 +15,6 @@ glm::vec4 algorithms::plane_from_points(const glm::vec3 p1, const glm::vec3 p2, 
     glm::vec3 normal = glm::normalize(glm::cross(v1, v2));
     float k = -1 * (p1.x * normal.x + p1.y * normal.y + p1.z * normal.z);
 
-    std::cout << glm::to_string(glm::vec4(normal, k)) << std::endl;
-
     return glm::vec4(normal, k);
 };
 
@@ -30,12 +28,5 @@ bool algorithms::all_points_on_plane(const glm::vec4 plane, const std::vector<gl
         }
     }
 
-    std::cout << "All points on single plane" << std::endl;
     return true;
-}
-
-glm::vec2 algorithms::project_2D(const glm::vec4 plane, const glm::vec3 point) {
-}
-
-std::vector<glm::vec2> algorithms::project_2D(const glm::vec4 plane, const std::vector<glm::vec3> points) {
 }

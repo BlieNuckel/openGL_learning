@@ -40,7 +40,7 @@ public:
     int *indices();
 
 private:
-    Face add_face(const std::vector<int>);
+    Face add_face(const std::vector<int> &vertex_i);
 };
 
 #endif
