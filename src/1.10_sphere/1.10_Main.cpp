@@ -17,8 +17,8 @@
 
 using namespace std;
 
-const char vertexShader[] = "../../src/1.10_sphere/shaders/shader.vs";
-const char fragShader[] = "../../src/1.10_sphere/shaders/shader.fs";
+const char vertexShader[] = "../src/1.10_sphere/shaders/shader.vs";
+const char fragShader[] = "../src/1.10_sphere/shaders/shader.fs";
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);

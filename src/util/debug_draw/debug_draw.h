@@ -2,6 +2,7 @@
 #define DEBUG_DRAW_H
 
 #include <Shader.h>
+#include <geometry/geometry.h>
 #include <glm/glm.hpp>
 #include <mesh/mesh.h>
 #include <shapes/shapes.h>
