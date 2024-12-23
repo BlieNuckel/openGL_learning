@@ -35,13 +35,21 @@ Face Mesh::add_face(const std::vector<int> &vertex_i) {
     bool valid = algorithms::all_points_on_plane(plane, points);
     if (!valid) {
         std::cout << "add_face::points_not_on_plane" + glm::to_string(plane) << std::endl;
-        throw std::exception("Invalid plane generation attempted");
+        throw std::runtime_error("Invalid plane generation attempted");
     }
+
+    glm::vec3 plane_normal = glm::normalize(glm::cross(p1 - p2, p3 - p2));
+    glm::vec3 plane_origin = algorithms::centroid(points);
 
     std::vector<float> angles;
     std::transform(points.begin(), points.end(), std::back_inserter(angles), [&](glm::vec3 point) {
-        return glm::orientedAngle()
+        glm::vec3 point_norm = plane_origin - point;
+        return glm::orientedAngle(glm::vec3(0.0f, 0.0f, 0.0f), point_norm, plane_normal);
     });
+
+    for (auto &&angle : angles) {
+        std::cout << angle << ' ';
+    }
 
     // Get offset for new face and insert new vertices
     int face_offset = this->_faces.size();

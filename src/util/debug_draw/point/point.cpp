@@ -35,3 +35,4 @@ namespace debug_draw {
 
         glBindVertexArray(0);
     };
+}

@@ -11,7 +11,7 @@ namespace debug_draw {
     class Point {
     private:
         Shader shader;
-        Mesh mesh = shapes::uv_sphere(10, 10);
+        Mesh mesh = geometry::uv_sphere(10, 10);
         unsigned int VAO;
         float scale;
 
