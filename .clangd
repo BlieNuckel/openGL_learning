@@ -1,0 +1,10 @@
+CompileFlags:
+  Add:
+    - "-Iincludes"
+    - "-Isrc"
+    - "-Isrc/util"
+    - "-Isrc/util/debug_draw"
+    - "-Isrc/util/mesh"
+    - "-Isrc/util/algorithms"
+    - "-Isrc/util/geometry"
+    - "-Isrc/util/textures"

@@ -2,9 +2,9 @@
 #define DEBUG_DRAW_H
 
 #include <Shader.h>
+#include <geometry/geometry.h>
 #include <glm/glm.hpp>
 #include <mesh/mesh.h>
-#include <shapes/shapes.h>
 
 namespace debug_draw {
 
@@ -20,7 +20,6 @@ namespace debug_draw {
 
         void draw(glm::vec3 pos, glm::mat4 view, glm::mat4 projection);
     };
-
 } // namespace debug_draw
 
 #endif
