@@ -12,24 +12,26 @@
 #include <numbers>
 #include <vector>
 
-debug_draw::Point::Point(float scale) : shader("../util/debug_draw/point/shaders/point_shader.vs", "../util/debug_draw/point/shaders/point_shader.fs") {
-    this->scale = scale;
-    this->VAO = renderMesh(this->mesh);
-};
+namespace debug_draw {
 
-void debug_draw::Point::draw(glm::vec3 pos, glm::mat4 view, glm::mat4 projection) {
-    glBindVertexArray(this->VAO);
+    Point::Point(float scale) : shader("../src/util/debug_draw/point/shaders/point_shader.vs", "../src/util/debug_draw/point/shaders/point_shader.fs"),
+                                scale(scale) {
+        this->VAO = renderMesh(this->mesh);
+    }
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, pos);
-    model = glm::scale(model, glm::vec3(this->scale));
+    void Point::draw(glm::vec3 pos, glm::mat4 view, glm::mat4 projection) {
+        glBindVertexArray(this->VAO);
 
-    shader.use();
-    shader.setMat4fv("model", model);
-    shader.setMat4fv("view", view);
-    shader.setMat4fv("projection", projection);
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, pos);
+        model = glm::scale(model, glm::vec3(this->scale));
 
-    glDrawElements(GL_TRIANGLES, this->mesh._triangles.size(), GL_UNSIGNED_INT, 0);
+        shader.use();
+        shader.setMat4fv("model", model);
+        shader.setMat4fv("view", view);
+        shader.setMat4fv("projection", projection);
 
-    glBindVertexArray(0);
-};
+        glDrawElements(GL_TRIANGLES, this->mesh._triangles.size(), GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+    };
